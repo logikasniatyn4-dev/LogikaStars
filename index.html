@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Logika Stars</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>⭐ LOGIKA STARS ⭐</h1>
+    <p>Стань легендою арени!</p>
+</header>
+<div class="top-stats">
+    <div>🪙 <span id="coins">0</span></div>
+    <div>🏆 <span id="cups">0</span></div>
+    <div>💎 <span id="gems">5</span></div>
+</div>
+<main>
+<section id="menu" class="panel">
+    <h2>ГОЛОВНЕ МЕНЮ</h2>
+    <div class="big-character">🤠</div>
+    <h2>Ковбой</h2>
+    <p>Твій перший боєць!</p>
+    <button onclick="startGame()">⚔️ ГРАТИ</button>
+    <button onclick="showHeroes()">⭐ БРАВЛЕРИ</button>
+    <button onclick="shop()">🛒 МАГАЗИН</button>
+</section>
+<section id="game" class="panel hidden">
+    <h2>⚔️ БОЙОВА АРЕНА</h2>
+    <div class="health-bars">
+        <div>
+            <span>🤠 ТИ</span>
+            <div class="health-bg">
+            <div id="myHealthBar" class="health-fill"></div>
+            </div>
+            <span id="hp">100</span>
+        </div>
+        <div>
+            <span>👾 ВОРОГ</span>
+            <div class="health-bg">
+                <div id="enemyHealthBar" class="health-fill enemy-fill"></div>
+            </div>
+            <span id="enemyHp">100</span>
+        </div>
+    </div>
+    <div id="arena">
+        <div class="bush bush1">🌿</div>
+        <div class="bush bush2">🌳</div>
+        <div class="bush bush3">🌿</div>
+
+        <div id="player" class="player">🤠</div>
+        <div id="enemy" class="enemy">👾</div>
+    </div>
+    <p id="message">Переможи суперника!</p>
+    <div class="game-controls">
+        <button id="attackBtn" onclick="attack()">🔫 СТРІЛЬБА</button>
+        <button id="healBtn" onclick="heal()">💚 ЛІКУВАТИСЬ</button>
+    </div>
+    <div class="movement">
+        <button onclick="move(-1)">⬅️</button>
+        <button onclick="move(1)">➡️</button>
+    </div>
+    <button class="back-button" onclick="back()">🏠 МЕНЮ</button>
+</section>
+<section id="store" class="panel hidden">
+    <h2>🛒 МАГАЗИН</h2>
+    <div class="shop-item">
+        <div class="big-character">❤️</div>
+        <h3>Аптечка</h3>
+        <p>Відновлення здоров'я</p>
+        <button onclick="buyHealth()">50 🪙 КУПИТИ</button>
+    </div>
+    <div class="shop-item">
+        <div class="big-character">💎</div>
+        <h3>Кристали</h3>
+        <p>2 кристали</p>
+        <button onclick="buyGems()">100 🪙 КУПИТИ</button>
+    </div>
+    <button onclick="back()">НАЗАД</button>
+</section>
+<section id="heroes" class="panel hidden">
+    <h2>⭐ БРАВЛЕРИ</h2>
+    <div class="hero-card">
+        <div class="big-character">🤠</div>
+        <h3>Ковбой</h3>
+        <p>Початковий боєць</p>
+        <span class="owned">РОЗБЛОКОВАНО</span>
+        <button onclick="selectHero('🤠','Ковбой')">ВИБРАТИ</button>
+    </div>
+    <div class="hero-card">
+        <div class="big-character">🥷</div>
+        <h3>Ніндзя</h3>
+        <p>Епічний</p>
+        <p>Ціна: 10 💎</p>
+        <button onclick="buyNinja()">РОЗБЛОКУВАТИ</button>
+        <button onclick="selectHero('🥷','Ніндзя')">ВИБРАТИ</button>
+    </div>
+    <button onclick="back()">НАЗАД</button>
+</section>
+</main>
+<div id="notification"></div>
+<script src="script.js"></script>
+</body>
+</html>

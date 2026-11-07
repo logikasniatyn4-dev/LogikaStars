@@ -1,0 +1,430 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #071c47, #164da0, #5523a5);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    text-align: center;
+}
+
+
+header {
+    flex-shrink: 0;
+    padding: 4px;
+}
+
+
+header h1 {
+    font-size: clamp(22px, 5vw, 38px);
+    color: #ffe43b;
+    text-shadow: 3px 4px #a13d00;
+    animation: titleGlow 2s infinite alternate;
+}
+
+
+header p {
+    font-size: 12px;
+}
+
+
+@keyframes titleGlow {
+    from { filter: drop-shadow(0 0 2px gold); }
+    to { filter: drop-shadow(0 0 12px orange); }
+}
+
+
+.top-stats {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    flex-shrink: 0;
+    margin: 5px;
+}
+
+
+.top-stats div {
+    background: #173b78;
+    border: 2px solid #63baff;
+    padding: 6px 13px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+main {
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.panel {
+    background: #173b78;
+    border: 3px solid #63baff;
+    border-radius: 18px;
+    padding: 12px;
+    width: 100%;
+    max-width: 650px;
+    max-height: 100%;
+    overflow-y: auto;
+    box-shadow: 0 6px #09244e;
+    animation: appear 0.3s ease;
+}
+
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+
+button {
+    border: none;
+    border-radius: 12px;
+    background: #ffcf28;
+    color: #552600;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 11px 15px;
+    margin: 4px;
+    cursor: pointer;
+    box-shadow: 0 4px #b66b00;
+    transition: transform 0.12s;
+    touch-action: manipulation;
+}
+
+
+button:active {
+    transform: translateY(4px) scale(0.96);
+    box-shadow: none;
+}
+
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+.big-character {
+    font-size: 48px;
+    margin: 8px;
+    animation: float 2s infinite ease-in-out;
+}
+
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+
+.health-bars {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    margin: 8px 0;
+}
+
+
+.health-bars > div {
+    width: 46%;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+.health-bg {
+    width: 100%;
+    height: 14px;
+    background: #333;
+    border: 2px solid white;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 4px 0;
+}
+
+
+.health-fill {
+    width: 100%;
+    height: 100%;
+    background: #36e65d;
+    transition: width 0.3s;
+}
+
+
+.enemy-fill {
+    background: #ff4141;
+}
+
+
+#arena {
+    width: 100%;
+    height: clamp(150px, 35vh, 290px);
+    position: relative;
+    overflow: hidden;
+    background-color: #78c84d;
+    background-image:
+    linear-gradient(45deg, #65a942 25%, transparent 25%, transparent 75%, #65a942 75%),
+    linear-gradient(45deg, #65a942 25%, transparent 25%, transparent 75%, #65a942 75%);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+    border: 5px solid #b0e979;
+    border-radius: 15px;
+}
+
+
+.player, .enemy {
+    position: absolute;
+    top: 50%;
+    font-size: clamp(32px, 9vw, 48px);
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    transition: left 0.2s;
+}
+
+
+.player {
+    left: 20%;
+}
+
+
+.enemy {
+    left: 80%;
+}
+
+
+.bush {
+    position: absolute;
+    font-size: 30px;
+}
+
+
+.bush1 { left: 40%; top: 15%; }
+.bush2 { left: 60%; top: 75%; }
+.bush3 { left: 5%; top: 75%; }
+
+
+#message {
+    color: #ffe43b;
+    font-size: 15px;
+    font-weight: bold;
+    min-height: 20px;
+    margin: 7px;
+}
+
+
+.game-controls, .movement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 5px;
+}
+
+
+.game-controls button {
+    flex: 1;
+    max-width: 190px;
+}
+
+
+.movement button {
+    width: 65px;
+    font-size: 20px;
+}
+
+
+.back-button {
+    margin-top: 3px;
+}
+
+
+.bullet {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #ffe600;
+    border-radius: 50%;
+    box-shadow: 0 0 15px 5px orange;
+    z-index: 10;
+    animation: shoot 0.4s linear forwards;
+}
+
+
+@keyframes shoot {
+    from { transform: scale(1); }
+    to { transform: scale(0.5); }
+}
+
+
+.explosion {
+    position: absolute;
+    font-size: 40px;
+    transform: translate(-50%, -50%);
+    animation: boom 0.5s ease-out forwards;
+    z-index: 11;
+    pointer-events: none;
+}
+
+
+@keyframes boom {
+    0% {
+        transform: translate(-50%, -50%) scale(0.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
+}
+
+.player-shake {
+    animation: shake 0.3s;
+}
+
+
+@keyframes shake {
+    0%, 100% { transform: translate(-50%, -50%); }
+    25% { transform: translate(-45%, -50%); }
+    75% { transform: translate(-55%, -50%); }
+}
+
+
+.heal-effect {
+    position: absolute;
+    top: 35%;
+    font-size: 28px;
+    animation: healing 1s ease-out forwards;
+    z-index: 12;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+
+@keyframes healing {
+    0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+        transform: translateY(-20px) scale(1.2);
+    }
+    100% {
+        transform: translateY(-90px) scale(1);
+        opacity: 0;
+    }
+}
+
+
+.shop-item, .hero-card {
+    background: #24549b;
+    border: 2px solid #69baff;
+    border-radius: 15px;
+    padding: 12px;
+    margin: 10px 0;
+}
+
+
+.owned {
+    display: inline-block;
+    color: #6bff8d;
+    font-weight: bold;
+    margin: 8px;
+}
+
+
+#notification {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #173b78;
+    border: 2px solid #ffe43b;
+    border-radius: 12px;
+    padding: 10px 18px;
+    display: none;
+    z-index: 100;
+    font-weight: bold;
+    max-width: 90%;
+}
+
+
+@media (max-height: 650px) {
+    header {
+        padding: 1px;
+    }
+
+    header h1 {
+        font-size: 22px;
+    }
+
+    header p {
+        display: none;
+    }
+
+    .top-stats {
+        margin: 2px;
+    }
+
+    .panel {
+        padding: 6px;
+    }
+
+    #arena {
+        height: 28vh;
+        min-height: 110px;
+    }
+
+    .big-character {
+        font-size: 32px;
+        margin: 3px;
+    }
+
+    button {
+        padding: 8px 11px;
+        font-size: 12px;
+        margin: 2px;
+    }
+
+    #message {
+        margin: 3px;
+    }
+
+    .health-bars {
+        margin: 3px;
+    }
+}

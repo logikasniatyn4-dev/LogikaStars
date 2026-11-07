@@ -109,14 +109,14 @@ function attack() {
             return;
         }
         document.getElementById("message").textContent =
-            "💥 Влучне попадання!";
+            "Влучне попадання!";
         setTimeout(() => {
             if (enemyHp > 0) {
                 hp = Math.max(0, hp - 20);
             }
             if (hp <= 0) {
                 document.getElementById("message").textContent =
-                    "💀 ТИ ПРОГРАВ!";
+                    "ТИ ПРОГРАВ!";
             }
             busy = false;
             update();
@@ -129,10 +129,10 @@ function win() {
     coins += 30;
     cups += 8;
     document.getElementById("message").textContent =
-        "🏆 ПЕРЕМОГА! +30 монет і +8 кубків!";
+        "ПЕРЕМОГА! +30 монет і +8 кубків!";
     document.getElementById("enemy").style.display = "none";
     update();
-    notify("🏆 ТИ ПЕРЕМІГ!");
+    notify("ТИ ПЕРЕМІГ!");
 }
 function heal() {
     if (hp <= 0 || busy || hp >= 100) return;
@@ -189,7 +189,7 @@ function showHeroes() {
 }
 function buyNinja() {
     if (ninja) {
-        notify("🥷 Ніндзя вже твій!");
+        notify("🐱‍👤 Ніндзя вже твій!");
         return;
     }
     if (gems < 10) {
@@ -199,7 +199,7 @@ function buyNinja() {
     gems -= 10;
     ninja = true;
     update();
-    notify("🥷 НІНДЗЯ РОЗБЛОКОВАНИЙ!");
+    notify("🐱‍👤 НІНДЗЯ РОЗБЛОКОВАНИЙ!");
 }
 function selectHero(character, name) {
     if (name === "Ніндзя" && !ninja) {

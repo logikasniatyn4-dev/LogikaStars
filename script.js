@@ -1,21 +1,32 @@
 let coins = 0;
 let cups = 0;
 let gems = 5;
+let level = 1;
 let hp = 100;
 let enemyHp = 100;
+let maxEnemyHp = 100;
+let enemyDamage = 20;
+let totalEnemies = 2;
+let currentEnemyIndex = 1;
 let position = 20;
 let busy = false;
 let ninja = false;
 let selectedCharacter = "🤠";
 let selectedName = "Ковбой";
+const enemyTypes = ["👾", "🤖", "👹", "🧟", "👿"];
 function update() {
+    document.getElementById("level").textContent = level;
+    document.getElementById("menuLevel").textContent = level;
+    document.getElementById("arenaLevel").textContent = level;
+    document.getElementById("enemyProgress").textContent = `${currentEnemyIndex}/${totalEnemies}`;
     document.getElementById("coins").textContent = coins;
     document.getElementById("cups").textContent = cups;
     document.getElementById("gems").textContent = gems;
     document.getElementById("hp").textContent = hp;
     document.getElementById("enemyHp").textContent = enemyHp;
     document.getElementById("myHealthBar").style.width = hp + "%";
-    document.getElementById("enemyHealthBar").style.width = enemyHp + "%";
+    const enemyPercent = Math.max(0, (enemyHp / maxEnemyHp) * 100);
+    document.getElementById("enemyHealthBar").style.width = enemyPercent + "%";
     document.getElementById("attackBtn").disabled =
         busy || hp <= 0 || enemyHp <= 0;
     document.getElementById("healBtn").disabled =
@@ -35,19 +46,34 @@ function notify(message) {
         box.style.display = "none";
     }, 1800);
 }
+function spawnEnemy() {
+    const enemyEl = document.getElementById("enemy");
+    const randomIcon = enemyTypes[Math.floor(Math.random() * enemyTypes.length)];
+    maxEnemyHp = 75 + (level - 1) * 15 + (currentEnemyIndex - 1) * 15;
+    enemyHp = maxEnemyHp;
+    enemyDamage = 15 + Math.min(20, (level - 1) * 3);
+    enemyEl.textContent = randomIcon;
+    document.getElementById("enemyIconLabel").textContent = randomIcon;
+    enemyEl.style.display = "block";
+    enemyEl.classList.remove("enemy-spawn");
+    void enemyEl.offsetWidth;
+    enemyEl.classList.add("enemy-spawn");
+}
 function startGame() {
     hideAll();
     document.getElementById("game").classList.remove("hidden");
     hp = 100;
-    enemyHp = 100;
     position = 20;
     busy = false;
+    totalEnemies = level === 1 ? 2 : (Math.random() < 0.5 ? 2 : 3);
+    currentEnemyIndex = 1;
     document.getElementById("player").textContent = selectedCharacter;
+    document.getElementById("playerIconLabel").textContent = selectedCharacter;
     document.getElementById("player").style.left = "20%";
     document.getElementById("player").style.filter = "none";
-    document.getElementById("enemy").style.display = "block";
+    spawnEnemy();
     document.getElementById("message").textContent =
-        "Переможи суперника!";
+        `Рівень ${level}! Ворогів: ${totalEnemies}. Переможи всіх!`;
     update();
 }
 function attack() {
@@ -67,14 +93,8 @@ function attack() {
     const endX = enemy.offsetLeft;
     const endY = enemy.offsetTop;
     bullet.animate([
-        {
-            left: startX + "px",
-            top: startY + "px"
-        },
-        {
-            left: endX + "px",
-            top: endY + "px"
-        }
+        { left: startX + "px", top: startY + "px" },
+        { left: endX + "px", top: endY + "px" }
     ], {
         duration: 400,
         easing: "linear",
@@ -94,7 +114,8 @@ function attack() {
         explosion.style.top = endY + "px";
         arena.appendChild(explosion);
         setTimeout(() => explosion.remove(), 500);
-        enemyHp = Math.max(0, enemyHp - 25);
+        const playerDamage = selectedName === "Ніндзя" ? 35 : 25;
+        enemyHp = Math.max(0, enemyHp - playerDamage);
         enemy.animate([
             { transform: "translate(-50%, -50%) scale(1)" },
             { transform: "translate(-50%, -50%) scale(1.4)" },
@@ -104,44 +125,60 @@ function attack() {
         });
         update();
         if (enemyHp <= 0) {
-            busy = false;
-            win();
+            if (currentEnemyIndex < totalEnemies) {
+                document.getElementById("message").textContent =
+                    `💥 Ворог ${currentEnemyIndex} знищений! Виходить наступний...`;
+                enemy.style.display = "none";
+                setTimeout(() => {
+                    currentEnemyIndex++;
+                    spawnEnemy();
+                    busy = false;
+                    document.getElementById("message").textContent =
+                        `⚠️ З'явився ворог ${currentEnemyIndex} з ${totalEnemies}!`;
+                    update();
+                }, 700);
+            } else {
+                busy = false;
+                win();
+            }
             return;
         }
         document.getElementById("message").textContent =
-            "Влучне попадання!";
+            "💥 Влучне попадання!";
         setTimeout(() => {
             if (enemyHp > 0) {
-                hp = Math.max(0, hp - 20);
+                hp = Math.max(0, hp - enemyDamage);
             }
             if (hp <= 0) {
                 document.getElementById("message").textContent =
-                    "ТИ ПРОГРАВ!";
+                    "💀 ТИ ПРОГРАВ! Спробуй ще раз!";
             }
             busy = false;
             update();
-
         }, 400);
 
     }, 400);
 }
 function win() {
-    coins += 30;
-    cups += 8;
+    const rewardCoins = 30 + (level - 1) * 10;
+    const rewardCups = 8 + (level - 1) * 2;
+    coins += rewardCoins;
+    cups += rewardCups;
+    level++;
     document.getElementById("message").textContent =
-        "ПЕРЕМОГА! +30 монет і +8 кубків!";
+        `🏆 РІВЕНЬ ПРОЙДЕНО! +${rewardCoins} 🪙 і +${rewardCups} 🏆!`;
     document.getElementById("enemy").style.display = "none";
     update();
-    notify("ТИ ПЕРЕМІГ!");
+    notify(`⭐ НОВИЙ РІВЕНЬ: ${level}!`);
 }
 function heal() {
     if (hp <= 0 || busy || hp >= 100) return;
-    hp = Math.min(100, hp + 20);
+    hp = Math.min(100, hp + 25);
     const arena = document.getElementById("arena");
     const player = document.getElementById("player");
     const effect = document.createElement("div");
     effect.className = "heal-effect";
-    effect.textContent = "💚 +20 ❤️";
+    effect.textContent = "💚 +25 ❤️";
     effect.style.left = position + "%";
     arena.appendChild(effect);
     setTimeout(() => effect.remove(), 1000);
@@ -156,8 +193,7 @@ function heal() {
 function move(dir) {
     if (hp <= 0 || busy) return;
     position = Math.max(10, Math.min(45, position + dir * 5));
-    document.getElementById("player").style.left =
-        position + "%";
+    document.getElementById("player").style.left = position + "%";
 }
 function shop() {
     hideAll();
@@ -189,7 +225,7 @@ function showHeroes() {
 }
 function buyNinja() {
     if (ninja) {
-        notify("🐱‍👤 Ніндзя вже твій!");
+        notify("🥷 Ніндзя вже твій!");
         return;
     }
     if (gems < 10) {
@@ -199,7 +235,7 @@ function buyNinja() {
     gems -= 10;
     ninja = true;
     update();
-    notify("🐱‍👤 НІНДЗЯ РОЗБЛОКОВАНИЙ!");
+    notify("🥷 НІНДЗЯ РОЗБЛОКОВАНИЙ!");
 }
 function selectHero(character, name) {
     if (name === "Ніндзя" && !ninja) {
@@ -208,6 +244,8 @@ function selectHero(character, name) {
     }
     selectedCharacter = character;
     selectedName = name;
+    document.getElementById("menuCharacter").textContent = character;
+    document.getElementById("menuHeroName").textContent = name;
     notify("⭐ Вибрано: " + name);
 }
 function back() {

@@ -13,7 +13,7 @@ let busy = false;
 let ninja = false;
 let selectedCharacter = "🤠";
 let selectedName = "Ковбой";
-const enemyTypes = ["👾", "🤖", "👹", "🧟", "👽"];
+const enemyTypes = ["👾", "🤖", "👹", "🧟", "👿"];
 function update() {
     document.getElementById("level").textContent = level;
     document.getElementById("menuLevel").textContent = level;

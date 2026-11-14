@@ -5,13 +5,11 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-
 html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
 }
-
 
 body {
     font-family: Arial, sans-serif;
@@ -24,12 +22,10 @@ body {
     text-align: center;
 }
 
-
 header {
     flex-shrink: 0;
     padding: 4px;
 }
-
 
 header h1 {
     font-size: clamp(22px, 5vw, 38px);
@@ -38,36 +34,32 @@ header h1 {
     animation: titleGlow 2s infinite alternate;
 }
 
-
 header p {
     font-size: 12px;
 }
-
 
 @keyframes titleGlow {
     from { filter: drop-shadow(0 0 2px gold); }
     to { filter: drop-shadow(0 0 12px orange); }
 }
 
-
 .top-stats {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 7px;
+    gap: 6px;
     flex-shrink: 0;
     margin: 5px;
 }
 
-
 .top-stats div {
     background: #173b78;
     border: 2px solid #63baff;
-    padding: 6px 13px;
+    padding: 5px 10px;
     border-radius: 12px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
 }
-
 
 main {
     width: 100%;
@@ -77,7 +69,6 @@ main {
     justify-content: center;
     align-items: center;
 }
-
 
 .panel {
     background: #173b78;
@@ -92,7 +83,6 @@ main {
     animation: appear 0.3s ease;
 }
 
-
 @keyframes appear {
     from {
         opacity: 0;
@@ -104,11 +94,9 @@ main {
     }
 }
 
-
 .hidden {
     display: none !important;
 }
-
 
 button {
     border: none;
@@ -125,18 +113,15 @@ button {
     touch-action: manipulation;
 }
 
-
 button:active {
     transform: translateY(4px) scale(0.96);
     box-shadow: none;
 }
 
-
 button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
-
 
 .big-character {
     font-size: 48px;
@@ -144,12 +129,10 @@ button:disabled {
     animation: float 2s infinite ease-in-out;
 }
 
-
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
 }
-
 
 .health-bars {
     display: flex;
@@ -158,13 +141,11 @@ button:disabled {
     margin: 8px 0;
 }
 
-
 .health-bars > div {
     width: 46%;
     font-size: 12px;
     font-weight: bold;
 }
-
 
 .health-bg {
     width: 100%;
@@ -176,7 +157,6 @@ button:disabled {
     margin: 4px 0;
 }
 
-
 .health-fill {
     width: 100%;
     height: 100%;
@@ -184,11 +164,9 @@ button:disabled {
     transition: width 0.3s;
 }
 
-
 .enemy-fill {
     background: #ff4141;
 }
-
 
 #arena {
     width: 100%;
@@ -197,14 +175,13 @@ button:disabled {
     overflow: hidden;
     background-color: #78c84d;
     background-image:
-    linear-gradient(45deg, #65a942 25%, transparent 25%, transparent 75%, #65a942 75%),
-    linear-gradient(45deg, #65a942 25%, transparent 25%, transparent 75%, #65a942 75%);
+        linear-gradient(45deg, #65a942 25%, transparent 25%, transparent 75%, #65a942 75%),
+        linear-gradient(45deg, #65a942 25%, transparent 25%, transparent 75%, #65a942 75%);
     background-size: 60px 60px;
     background-position: 0 0, 30px 30px;
     border: 5px solid #b0e979;
     border-radius: 15px;
 }
-
 
 .player, .enemy {
     position: absolute;
@@ -215,27 +192,32 @@ button:disabled {
     transition: left 0.2s;
 }
 
-
 .player {
     left: 20%;
 }
-
 
 .enemy {
     left: 80%;
 }
 
+.enemy-spawn {
+    animation: spawnEnemy 0.4s ease-out;
+}
+
+@keyframes spawnEnemy {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    80% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
 
 .bush {
     position: absolute;
     font-size: 30px;
 }
 
-
 .bush1 { left: 40%; top: 15%; }
 .bush2 { left: 60%; top: 75%; }
 .bush3 { left: 5%; top: 75%; }
-
 
 #message {
     color: #ffe43b;
@@ -245,7 +227,6 @@ button:disabled {
     margin: 7px;
 }
 
-
 .game-controls, .movement {
     display: flex;
     justify-content: center;
@@ -254,23 +235,19 @@ button:disabled {
     margin: 5px;
 }
 
-
 .game-controls button {
     flex: 1;
     max-width: 190px;
 }
-
 
 .movement button {
     width: 65px;
     font-size: 20px;
 }
 
-
 .back-button {
     margin-top: 3px;
 }
-
 
 .bullet {
     position: absolute;
@@ -283,12 +260,10 @@ button:disabled {
     animation: shoot 0.4s linear forwards;
 }
 
-
 @keyframes shoot {
     from { transform: scale(1); }
     to { transform: scale(0.5); }
 }
-
 
 .explosion {
     position: absolute;
@@ -298,7 +273,6 @@ button:disabled {
     z-index: 11;
     pointer-events: none;
 }
-
 
 @keyframes boom {
     0% {
@@ -315,13 +289,11 @@ button:disabled {
     animation: shake 0.3s;
 }
 
-
 @keyframes shake {
     0%, 100% { transform: translate(-50%, -50%); }
     25% { transform: translate(-45%, -50%); }
     75% { transform: translate(-55%, -50%); }
 }
-
 
 .heal-effect {
     position: absolute;
@@ -332,7 +304,6 @@ button:disabled {
     pointer-events: none;
     white-space: nowrap;
 }
-
 
 @keyframes healing {
     0% {
@@ -349,7 +320,6 @@ button:disabled {
     }
 }
 
-
 .shop-item, .hero-card {
     background: #24549b;
     border: 2px solid #69baff;
@@ -358,14 +328,12 @@ button:disabled {
     margin: 10px 0;
 }
 
-
 .owned {
     display: inline-block;
     color: #6bff8d;
     font-weight: bold;
     margin: 8px;
 }
-
 
 #notification {
     position: fixed;
@@ -382,49 +350,15 @@ button:disabled {
     max-width: 90%;
 }
 
-
 @media (max-height: 650px) {
-    header {
-        padding: 1px;
-    }
-
-    header h1 {
-        font-size: 22px;
-    }
-
-    header p {
-        display: none;
-    }
-
-    .top-stats {
-        margin: 2px;
-    }
-
-    .panel {
-        padding: 6px;
-    }
-
-    #arena {
-        height: 28vh;
-        min-height: 110px;
-    }
-
-    .big-character {
-        font-size: 32px;
-        margin: 3px;
-    }
-
-    button {
-        padding: 8px 11px;
-        font-size: 12px;
-        margin: 2px;
-    }
-
-    #message {
-        margin: 3px;
-    }
-
-    .health-bars {
-        margin: 3px;
-    }
+    header { padding: 1px; }
+    header h1 { font-size: 22px; }
+    header p { display: none; }
+    .top-stats { margin: 2px; }
+    .panel { padding: 6px; }
+    #arena { height: 28vh; min-height: 110px; }
+    .big-character { font-size: 32px; margin: 3px; }
+    button { padding: 8px 11px; font-size: 12px; margin: 2px; }
+    #message { margin: 3px; }
+    .health-bars { margin: 3px; }
 }

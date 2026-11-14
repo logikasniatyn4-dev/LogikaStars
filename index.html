@@ -8,36 +8,37 @@
 </head>
 <body>
 <header>
-    <h1>LOGIKA STARS ⭐</h1>
-    <p>Стань легендою арени</p>
+    <h1>⭐ LOGIKA STARS ⭐</h1>
+    <p>Стань легендою арени!</p>
 </header>
 <div class="top-stats">
-    <div>💰 <span id="coins">0</span></div>
+    <div>⭐ Рівень: <span id="level">1</span></div>
+    <div>🪙 <span id="coins">0</span></div>
     <div>🏆 <span id="cups">0</span></div>
     <div>💎 <span id="gems">5</span></div>
 </div>
 <main>
 <section id="menu" class="panel">
     <h2>ГОЛОВНЕ МЕНЮ</h2>
-    <div class="big-character">🤠</div>
-    <h2>Ковбой</h2>
-    <p>Твій перший боєць</p>
-    <button onclick="startGame()">ГРАТИ</button>
-    <button onclick="showHeroes()">БРАВЛЕРИ</button>
-    <button onclick="shop()">МАГАЗИН</button>
+    <div id="menuCharacter" class="big-character">🤠</div>
+    <h2 id="menuHeroName">Ковбой</h2>
+    <p>Поточний рівень: <strong id="menuLevel">1</strong></p>
+    <button onclick="startGame()">⚔️ ГРАТИ</button>
+    <button onclick="showHeroes()">⭐ БРАВЛЕРИ</button>
+    <button onclick="shop()">🛒 МАГАЗИН</button>
 </section>
 <section id="game" class="panel hidden">
-    <h2>БОЙОВА АРЕНА</h2>
+    <h2>⚔️ РІВЕНЬ <span id="arenaLevel">1</span> (Ворог <span id="enemyProgress">1/2</span>)</h2>
     <div class="health-bars">
         <div>
-            <span>🤠ТИ</span>
+            <span><span id="playerIconLabel">🤠</span> ТИ</span>
             <div class="health-bg">
-            <div id="myHealthBar" class="health-fill"></div>
+                <div id="myHealthBar" class="health-fill"></div>
             </div>
             <span id="hp">100</span>
         </div>
         <div>
-            <span>ВОРОГ</span>
+            <span><span id="enemyIconLabel">👾</span> ВОРОГ</span>
             <div class="health-bg">
                 <div id="enemyHealthBar" class="health-fill enemy-fill"></div>
             </div>
@@ -52,16 +53,16 @@
         <div id="player" class="player">🤠</div>
         <div id="enemy" class="enemy">👾</div>
     </div>
-    <p id="message">Переможи суперника!</p>
+    <p id="message">Переможи всіх суперників!</p>
     <div class="game-controls">
-        <button id="attackBtn" onclick="attack()">СТРІЛЬБА</button>
-        <button id="healBtn" onclick="heal()">ЛІКУВАТИСЬ</button>
+        <button id="attackBtn" onclick="attack()">🔫 СТРІЛЬБА</button>
+        <button id="healBtn" onclick="heal()">💚 ЛІКУВАТИСЬ</button>
     </div>
     <div class="movement">
         <button onclick="move(-1)">⬅️</button>
         <button onclick="move(1)">➡️</button>
     </div>
-    <button class="back-button" onclick="back()">МЕНЮ</button>
+    <button class="back-button" onclick="back()">🏠 МЕНЮ</button>
 </section>
 <section id="store" class="panel hidden">
     <h2>🛒 МАГАЗИН</h2>
@@ -80,21 +81,21 @@
     <button onclick="back()">НАЗАД</button>
 </section>
 <section id="heroes" class="panel hidden">
-    <h2>БРАВЛЕРИ</h2>
+    <h2>⭐ БРАВЛЕРИ</h2>
     <div class="hero-card">
         <div class="big-character">🤠</div>
         <h3>Ковбой</h3>
-        <p>Початковий боєць</p>
+        <p>Початковий боєць (Урон: 25)</p>
         <span class="owned">РОЗБЛОКОВАНО</span>
         <button onclick="selectHero('🤠','Ковбой')">ВИБРАТИ</button>
     </div>
     <div class="hero-card">
-        <div class="big-character">🐱‍👤</div>
+        <div class="big-character">🥷</div>
         <h3>Ніндзя</h3>
-        <p>Епік</p>
+        <p>Епічний (Урон: 35)</p>
         <p>Ціна: 10 💎</p>
         <button onclick="buyNinja()">РОЗБЛОКУВАТИ</button>
-        <button onclick="selectHero('🐱‍👤','Ніндзя')">ВИБРАТИ</button>
+        <button onclick="selectHero('🥷','Ніндзя')">ВИБРАТИ</button>
     </div>
     <button onclick="back()">НАЗАД</button>
 </section>
